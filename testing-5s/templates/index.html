@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic 5S</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT&family=Poppins&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .user-icon {
+      width: 30px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="{{ url_for('index') }}" style="text-decoration: none;"><div class="header-left">DYNAMIC <span class="highlight">5S</span></div></a>
+      <div class="header-right">
+         <a href="{{ url_for('indicator') }}" class="span">INDICATOR</a>
+         <a href="{{ url_for('video') }}" class="span">VIDEO</a>
+        <a href="{{ url_for ('register') }}"><img src="{{ url_for('static', filename='user.png') }}" alt="User Icon" class="user-icon"></a>
+      </div>
+    </header>
+
+    <span class="line"></span>
+    <main>
+      <h1><span class="highlight"><i class="bi bi-5-circle-fill"></i></span>S KAIZEN</h1>
+
+      <div class="photo">
+        <img src="{{ url_for('static', filename='5s-main.png') }}" alt="5S Image" class="image" />
+      </div>
+
+      <section class="cards">
+        <div class="card">
+          <div class="icon"><i class="bi bi-sort-up"></i></div>
+          <h2>SORT</h2>
+          <p>Remove unnecessary items from the workspace and keep only what is essential. This step helps reduce clutter, improves focus, and sets the foundation for a clean and efficient working environment.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon"><i class="bi bi-calendar-check"></i></div>
+          <h2>SET IN ORDER</h2>
+          <p>Arrange necessary items so they are easy to use and return. Label everything and assign specific places for tools and supplies to ensure everyone knows where things belong, minimizing wasted time.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon"><i class="bi bi-gem"></i></div>
+          <h2>SHINE</h2>
+          <p>Keep the workplace clean by performing regular maintenance and inspection. This step helps identify early signs of issues, boosts morale, and ensures that every area is ready for efficient operation.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon"><i class="bi bi-bounding-box"></i></div>
+          <h2>STANDARDIZE</h2>
+          <p>Establish routines, checklists, and visual cues to maintain the first three steps. Standardization creates consistency and makes it easier to identify abnormalities or areas that need improvement.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon"><i class="bi bi-bar-chart-fill"></i></div>
+          <h2>SUSTAIN</h2>
+          <p>Build habits and foster discipline to continue following the 5S methodology. Use regular audits, training, and feedback loops to ensure ongoing improvement and long-term success in workplace organization.</p>
+        </div>
+      </section>
+    </main>
+</div>
+<!-- Floating Chatbot Button -->
+<div id="chatbot-button" class="chatbot-btn" title="Chat with us!">
+  💬
+</div>
+
+  <footer>
+      <p>© 2025 Dynamic 5S. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="#"><i class="bi bi-instagram"></i></a>
+        <a href="#"><i class="bi bi-linkedin"></i></a>
+        <a href="#"><i class="bi bi-envelope"></i></a>
+      </div>
+    </footer>
+
+  <script>
+    const chatbotBtn = document.getElementById('chatbot-button');
+    const chatbotPopup = document.getElementById('chatbot-popup');
+    const chatbotClose = document.getElementById('chatbot-close');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+
+    chatbotBtn.addEventListener('click', () => {
+    chatbotPopup.style.display = 'flex';  // Show popup
+    });
+
+    chatbotClose.addEventListener('click', () => {
+    chatbotPopup.style.display = 'none';  // Hide popup
+    });
+    function appendMessage(text, sender) {
+  const message = document.createElement('div');
+  message.textContent = text;
+  message.style.padding = '8px 12px';
+  message.style.marginBottom = '8px';
+  message.style.borderRadius = '12px';
+  message.style.maxWidth = '75%';
+  message.style.wordWrap = 'break-word';
+
+  if(sender === 'user') {
+    message.style.backgroundColor = '#87CEFA';
+    message.style.color = '#000';
+    message.style.alignSelf = 'flex-end';
+    message.style.marginLeft = 'auto';
+  } else {
+    message.style.backgroundColor = '#e0e0e0';
+    message.style.color = '#000';
+    message.style.alignSelf = 'flex-start';
+    message.style.marginRight = 'auto';
+  }
+
+  chatMessages.appendChild(message);
+  chatMessages.scrollTop = chatMessages.scrollHeight; // scroll to bottom
+}
+
+async function sendMessage() {
+  const userMessage = chatInput.value.trim();
+  if (!userMessage) return;
+
+  appendMessage(userMessage, 'user');
+  chatInput.value = '';
+  
+  // Show loading or placeholder bot message
+  appendMessage('Typing...', 'bot');
+
+  // Here you will call your Gemini API, simulate with setTimeout for now
+  try {
+    // Remove "Typing..." message before showing real bot response
+    const typingMsg = chatMessages.querySelector('div:last-child');
+    if (typingMsg && typingMsg.textContent === 'Typing...') {
+      chatMessages.removeChild(typingMsg);
+    }
+
+    // Simulate Gemini API call with delay
+    // Replace this block with your actual API fetch code
+const botReply = await fetch("http://localhost:8000/api/ask", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ question: userMessage })
+})
+  .then(res => res.json())
+  .then(data => data.answer);
+
+
+    appendMessage(botReply, 'bot');
+  } catch (error) {
+    appendMessage("Oops! Something went wrong.", 'bot');
+  }
+}
+
+chatSend.addEventListener('click', sendMessage);
+
+// Also send message when pressing Enter inside input box
+chatInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    sendMessage();
+  }
+});
+
+
+
+    window.addEventListener('scroll', () => {
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          card.classList.add('animate');
+        } else {
+          card.classList.remove('animate');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
