@@ -1,4 +1,4 @@
-# Dnamic 5S AI Detection System
+# Dynamic 5S Compliance Audits
 
 This repository contains the code and resources for a computer vision system that automates **5S compliance audits** in industrial environments using deep learning. The system uses **YOLOv11 and YOLOv10** for object detection of 5S attributes such as clean, tidy, organized, and labeled.
 
