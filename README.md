@@ -23,19 +23,16 @@ The goal of this project is to support digital transformation in industrial work
 
 ### 1. Clone the Repository
 
-  ```bash
-      git clone https://github.com/yourusername/dynamic5s.git
-      cd dynamic5s
+  git clone https://github.com/yourusername/dynamic5s.git
+  cd dynamic5s
 
 ### 2. Install Python Depedencies
 
-  ```bash
-    pip install -r requirements.txt
+  pip install -r requirements.txt
 
 ### 3. Run Python App
 
-  ```bash
-    python app.py
+  python app.py
 
 ## Tech Stack
 
