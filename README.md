@@ -19,21 +19,23 @@ The goal of this project is to support digital transformation in industrial work
 - Node.js (for frontend Firebase, optional)
 - pip (Python package installer)
 
+## How to Use
+
 ### 1. Clone the Repository
 
-```bash
-git clone https://github.com/yourusername/dynamic5s.git
-cd dynamic5s
+  ```bash
+      git clone https://github.com/yourusername/dynamic5s.git
+      cd dynamic5s
 
 ### 2. Install Python Depedencies
 
-```bash
-pip install -r requirements.txt
+  ```bash
+    pip install -r requirements.txt
 
 ### 3. Run Python App
 
-```bash
-python app.py
+  ```bash
+    python app.py
 
 ## Tech Stack
 
