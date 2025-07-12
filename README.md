@@ -16,7 +16,6 @@ The goal of this project is to support digital transformation in industrial work
 ## Requirements
 
 - Python 3.8+
-- Node.js (for frontend Firebase, optional)
 - pip (Python package installer)
 
 ## How to Use
