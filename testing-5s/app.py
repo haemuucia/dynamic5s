@@ -125,8 +125,8 @@ def process_set_in_order(image_file):
     output['seiton_image'] = image_with_boxes([results])
 
     classification, reasons = evaluate_seiton(results, REFERENCE_WIDTHS, REFERENCE_DISTANCES)
-
-    return classification, reasons
+    classification_str = "Yes, it is set in order" if classification else "No"
+    return classification_str, reasons
 
 def create_pie_chart():
     labels = ['Shine', 'Sorting', 'Set in Order', 'Standardize', 'Sustain']
@@ -279,58 +279,6 @@ def draw_boxes_on_frame(frame, merged_boxes):
 
     return frame
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        fullname = request.form.get('fullname')
-        employee_id = request.form.get('employee_id')
-        phone_number = request.form.get('phone_number')
-
-        email = request.form.get('email')
-        password = request.form.get('password')
-        confirm_password = request.form.get('confirm_password')
-        department = request.form.get('department')
-        role = request.form.get('role')
-        gender = request.form.get('gender')
-
-        # Password match check
-        if password != confirm_password:
-            flash("Passwords do not match!", "error")
-            return redirect(url_for('register'))
-
-        # You can now save this data to a database or print for testing
-        print(f"New registration: {fullname}, {employee_id}, {phone_number}, {email}, {department}, {role}, {gender}")
-
-        flash("Registration successful!", "success")
-        return redirect(url_for('register'))
-
-    return render_template('register.html')
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        # You can implement authentication logic here
-        email = request.form.get('email')
-        password = request.form.get('password')
-        # For now, just flash and redirect
-        flash(f"Login attempt for user: {email}")
-        return redirect(url_for('login'))  # Redirect to login again or change to a dashboard route
-
-    return render_template('login.html')
-
-@app.route('/forgot-password', methods=['GET', 'POST'])
-def forgot_password():
-    if request.method == 'POST':
-        email = request.form.get('email')
-
-        # Simulated response, replace with actual email logic later
-        print(f"Password reset link requested for: {email}")
-
-        flash("If this email exists, a reset link has been sent.", "info")
-        return redirect(url_for('forgot_password'))
-
-    return render_template('forgot-password.html')
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -345,7 +293,6 @@ def indicator():
         sorting_image = request.files['sorting_image']
         seiton_image = request.files['seiton_image']
 
-        # Get Sustain checkbox value from form
         sustain_check = request.form.get('sustain_check', 'No')
         output['sustain'] = "Yes" if sustain_check == 'Yes' else "No"
 
