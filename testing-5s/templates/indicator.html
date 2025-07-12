@@ -151,7 +151,7 @@
       {% endif %}
       {% if seiton_image %}
         <div class="result-box">
-          <h3>Set in Order Result (Seiton): {{ seiton_result }}</h3>
+          <h3>Set in Order Result (Seiton): {{ "Yes, it is set in order" if seiton_result else "No, not set in order" }}</h3>
           <img src="data:image/png;base64,{{ seiton_image }}" alt="Seiton Image">
           {% if seiton_reasons %}
           <ul>
